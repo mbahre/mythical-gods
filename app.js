@@ -2,11 +2,14 @@ const dotenv = require("dotenv");
 dotenv.config({ path: "./config.env" });
 const express = require("express");
 const morgan = require("morgan");
+const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
 
 const mgRouter = require(`${__dirname}/routes/mgRoute`);
 
 const app = express();
+
+app.use(helmet());
 
 const limiter = rateLimit({
   max: 100,
