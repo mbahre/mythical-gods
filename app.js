@@ -4,6 +4,8 @@ const express = require("express");
 const morgan = require("morgan");
 const helmet = require("helmet");
 const rateLimit = require("express-rate-limit");
+const mongoSanitize = require("express-mongo-sanitize");
+const xss = require("xss-clean");
 
 const mgRouter = require(`${__dirname}/routes/mgRoute`);
 
@@ -22,6 +24,10 @@ app.use("/api", limiter);
 app.use(morgan("dev"));
 
 app.use(express.json());
+
+app.use(mongoSanitize());
+
+app.use(xss());
 
 app.use("/api", mgRouter);
 
